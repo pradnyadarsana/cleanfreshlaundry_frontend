@@ -25,10 +25,10 @@
                                 <td>{{ item.email}}</td>
                                 <td>{{ item.password }}</td>
                                 <td class="text-center">
-                                    <v-btn icon color="indigo" light @click="editHandler(item)">
+                                    <v-btn icon color="primary_dark" light @click="editHandler(item)">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
-                                    <v-btn icon color="error" light @click="deleteData(item.id)">
+                                    <v-btn icon color="warning" light @click="deleteData(item.id)">
                                         <v-icon>mdi-delete</v-icon>
                                     </v-btn>
                                 </td>

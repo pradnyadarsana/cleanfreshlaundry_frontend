@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-navigation-drawer v-model="drawer" class="grey darken-3" dark app clipped fixed temporary>
+        <v-navigation-drawer v-model="drawer" class="primary_dark" dark app clipped fixed temporary>
             <v-list-item>
                 <v-list-item-content>
                     <v-list-item-title class="title">
@@ -26,12 +26,12 @@
             </v-list>
             <template v-slot:append>
                 <div class="pa-2">
-                    <v-btn block>Logout</v-btn>
+                    <v-btn block color="error">Logout</v-btn>
                 </div>
             </template>
         </v-navigation-drawer>
 
-        <v-app-bar dark app fixed clipped-left height="70px" color="grey darken-3">
+        <v-app-bar dark app fixed clipped-left height="70px" color="primary_dark darken-1">
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
             <VSpacer />
@@ -54,12 +54,12 @@ export default {
             drawer: null,
             items: [
                 {
-                    path: '/user',
+                    path: '/dashboard/user',
                     title: 'User Controller',
                     icon: 'mdi-human-male'
                 },
                 {
-                    path: '/branch',
+                    path: '/dashboard/branch',
                     title: 'Branch Controller',
                     icon: 'mdi-human-male'
                 },
