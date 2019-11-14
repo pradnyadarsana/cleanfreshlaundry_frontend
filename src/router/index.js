@@ -11,12 +11,22 @@ const routes = [
     {       
         path: '/',       
         component: DashboardLayout,       
-        children: [         
+        children: [ 
+            {           
+                name: 'LandingPage',           
+                path: '',           
+                component: loadView('landingPage')         
+            },        
             {           
                 name: 'UserController',           
-                path: '',           
+                path: '/user',           
                 component: loadView('userController')         
-            }       
+            },
+            {           
+                name: 'BranchController',           
+                path: '/branch',           
+                component: loadView('branchController')         
+            }         
         ]     
     },   
 ]   
