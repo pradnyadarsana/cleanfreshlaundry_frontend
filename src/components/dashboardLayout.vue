@@ -54,6 +54,11 @@ export default {
             drawer: null,
             items: [
                 {
+                    path: '/user/order',
+                    title: 'MY ORDER',
+                    icon: 'mdi-human-male'
+                },
+                {
                     path: '/dashboard/user',
                     title: 'User Controller',
                     icon: 'mdi-human-male'

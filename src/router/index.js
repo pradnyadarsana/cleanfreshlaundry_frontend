@@ -31,14 +31,19 @@ const routes = [
         ]     
     },
     {       
-        path: '/dashboard',       
+        path: '/home',       
         component: DashboardLayout,       
         children: [ 
             {           
-                name: 'LandingPage',           
+                name: 'HomeController',           
                 path: '/',           
-                component: loadUserView('landingPage')         
-            },        
+                component: loadUserView('homeController')         
+            },
+            {           
+                name: 'OrderController',           
+                path: '/user/order',           
+                component: loadUserView('orderController')         
+            },       
             {           
                 name: 'UserController',           
                 path: '/dashboard/user',           
