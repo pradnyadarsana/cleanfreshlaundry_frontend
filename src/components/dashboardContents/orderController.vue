@@ -1,24 +1,22 @@
 <template>
-    <v-container>
-        <v-card>
-            <v-container grid-list-md mb-0>
+        <v-card class="mx-4 my-3 px-7 py-7" elevation="5">
                 <h2 class="text-md-center">MY ORDER</h2>
-                <v-layout row wrap style="margin:10px">
+                <v-layout row wrap justify-space-between style="margin:10px">
                     <v-flex xs6 class="text-right">
                         <v-text-field v-model="keyword" append-icon="mdi-search" label="Search" hide-details>
                         </v-text-field>
                     </v-flex>
-                    <v-flex xs6>
+                    <v-flex xs2 pl-10>
                         <v-btn depressed dark rounded style="text-transform: none !important;" color="green accent-3"
                             @click="dialog = true">
-                            <v-icon size="18" class="mr-2">mdi-pencil-plus</v-icon> Tambah User
+                            <v-icon size="18" class="mr-2">mdi-pencil-plus</v-icon> Add New Order
                         </v-btn>
                     </v-flex>
                     
                 </v-layout>
 
-                <v-data-table :headers="headers" :items="orders" :search="keyword" :loading="load"> <template
-                        v-slot:body="{ items }">
+                <v-data-table :headers="headers" :items="orders" :search="keyword" :loading="load" sort-by="id" sort-desc="true"> 
+                    <template v-slot:body="{ items }">
                         <tbody>
                             <tr v-for="item in items" :key="item.id">
                                 <td>{{ item.id }}</td>
@@ -29,62 +27,86 @@
                                 <td>{{ item.status }}</td>
                                 <td>{{ item.created_at }}</td>
                                 <td class="text-center">
-                                    <v-btn icon color="primary_dark" light @click="editHandler(item)">
+                                    <v-btn icon color="primary_dark" light v-if="item.status=='Unprocessed'" @click="editHandler(item)">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
-                                    <v-btn icon color="warning" light @click="deleteData(item.id)">
+                                    <v-btn icon color="warning" light v-if="item.status=='Unprocessed'" @click="openDeleteDialog(item.id)">
                                         <v-icon>mdi-delete</v-icon>
                                     </v-btn>
                                 </td>
                             </tr>
                         </tbody>
-                    </template> </v-data-table>
-            </v-container>
-        </v-card>
-        <v-dialog v-model="dialog" persistent max-width="600px">
-            <v-card>
-                <v-card-title> <span class="headline">User Profile</span> </v-card-title>
-                <v-card-text>
-                    <v-container>
-                        <v-row>
-                            <v-col cols="12">
-                                <v-text-field label="Address*" v-model="form.address" required>
+                    </template> 
+                </v-data-table>
+            <v-dialog v-model="dialog" persistent max-width="600px">
+                <v-card>
+                    <v-card-title>
+                        <span class="headline" v-if="typeInput=='new'">Add New Order</span>
+                        <span class="headline" v-else>Edit Order</span>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-container>
+                            <v-row>
+                                <v-col cols="12">
+                                    <v-text-field label="Address*" v-model="form.address" required>
                                     </v-text-field>
-                            </v-col>
-                            <v-col>
-                                <v-combobox
-                                v-model="form.price_cat"
-                                :items="price_cat"
-                                label="Price Category"
-                                ></v-combobox>
-                            </v-col>
-                            <v-col cols="3">
-                                <v-text-field type="number" min="0" label="Weight*" v-model="form.weight" required></v-text-field>
-                            </v-col>
-                            <v-col cols="4">
-                                <v-text-field label="Price Total" v-model="totalPrice" required disabled="">
-                                </v-text-field>
-                            </v-col>
-                        </v-row>
-                    </v-container> <small>*indicates required field</small>
-                </v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+                                </v-col>
+                                <v-col>
+                                    <v-combobox v-model="form.price_cat" :items="price_cat" label="Price Category*">
+                                    </v-combobox>
+                                </v-col>
+                                <v-col cols="3">
+                                    <v-text-field type="number" min="0" label="Weight*" v-model="form.weight" required>
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field label="Price Total" v-model="totalPrice" required disabled="">
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-container> <small>*indicates required field</small>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue darken-1" text @click="closeFormDialog()">Close</v-btn>
                         <v-btn color="blue darken-1" text @click="setForm()">Save</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-        <v-snackbar v-model="snackbar" :color="color" :multi-line="true" :timeout="3000"> {{ text }} <v-btn dark text
-                @click="snackbar = false"> Close </v-btn>
-        </v-snackbar>
-    </v-container>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <v-dialog v-model="deleteDialog" max-width="290">
+                <v-card>
+                    <v-card-title class="headline">Are you sure?</v-card-title>
+
+                    <v-card-text>
+                        Delete this data will affect permanently.
+                    </v-card-text>
+
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+
+                        <v-btn color="grey" text @click="deleteDialog = false">
+                            Cancel
+                        </v-btn>
+
+                        <v-btn color="error" text @click="deleteData(deleteId)">
+                            Delete
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+
+            <v-snackbar v-model="snackbar" :color="color" :multi-line="true" :timeout="3000"> {{ text }} <v-btn dark
+                    text @click="snackbar = false"> Close </v-btn>
+            </v-snackbar>
+        </v-card>
+        
 </template>
 
 <script>
 export default {
     data() {
         return {
+            deleteDialog: false,
             dialog: false,
             keyword: '',
             headers: [
@@ -137,20 +159,12 @@ export default {
             errors: '',
             updatedId: '',
             pricelist: [],
-            price_cat: []
+            price_cat: [],
+            order_status : '',
+            deleteId: ''
         }
     },
     computed:{
-        // totalPrice() {
-        //     for (var i=0;i<this.price_cat.length;i++){
-
-        //         if(this.price_cat[i] == this.form.price_cat){
-        //             var price = parseInt(this.pricelist[i])
-        //         }
-        //     }
-        //     this.form.price = parseInt(this.form.weight)*parseInt(price)
-        //     return
-        // }
         totalPrice: function(){
             var price = ''
             for (var i=0;i<this.price_cat.length;i++){
@@ -181,22 +195,24 @@ export default {
             })
         },
         getData() {
-            var uri = this.$apiUrl + '/order'
+            var username = 'pande'
+            var uri = this.$apiUrl + '/order/userOrder/' + username
             this.$http.get(uri).then(response => {
                 this.orders = response.data.message
             })
         },
         sendData() {
-            var username = ''
-            var phone = ''
-            var status = 'Unprocessed'
+            this.order = new FormData
+            var username = 'pande'
+            var phone = '0128312832'
+            this.order_status = 'Unprocessed'
             this.order.append('username', username);
             this.order.append('phone', phone);
             this.order.append('address', this.form.address);
             this.order.append('price_cat', this.form.price_cat);
             this.order.append('weight', this.form.weight);
             this.order.append('price', this.form.price);
-            this.order.append('status', status);
+            this.order.append('status', this.order_status);
             var uri = this.$apiUrl + '/order'
             this.load = true 
             this.$http.post(uri, this.order).then(response => {
@@ -216,11 +232,13 @@ export default {
                 this.load = false;           
             })         
         },         
-        updateData(){             
+        updateData(){  
+            this.order = new FormData           
             this.order.append('address', this.form.address);
             this.order.append('price_cat', this.form.price_cat);
             this.order.append('weight', this.form.weight);
-            this.order.append('price', this.form.price);             
+            this.order.append('price', this.form.price); 
+            this.order.append('status', this.order_status)            
             var uri = this.$apiUrl + '/order/' + this.updatedId;             
             this.load = true             
             this.$http.post(uri,this.order).then(response =>{ 
@@ -247,7 +265,8 @@ export default {
             this.form.address = item.address;           
             this.form.price_cat = item.price_cat;           
             this.form.weight = item.weight,
-            this.form.price = item.price,        
+            this.form.price = item.price,
+            this.order_status = item.status,       
             this.updatedId = item.id         
         },         
         deleteData(deleteId){ //mengahapus data             
@@ -259,17 +278,19 @@ export default {
                 this.deleteDialog = false;
                 this.getData();
             }).catch(error => {
+                this.deleteDialog = false;
                 this.errors = error 
                 this.snackbar = true;
                 this.text = 'Try Again';
                 this.color = 'red';
+                
             })
         }, 
         setForm() {
             if (this.typeInput === 'new') {
                 this.sendData()
             } else {
-                console.log("dddd")
+                console.log("update data")
                 this.updateData()
             }
         }, 
@@ -280,6 +301,16 @@ export default {
                 weight: '',
                 price: ''
             }
+            this.order_status = ''
+        },
+        openDeleteDialog(deleteId){
+            this.deleteDialog = true
+            this.deleteId = deleteId
+        },
+        closeFormDialog(){
+            this.dialog = false,
+            this.resetForm()
+            this.typeInput = 'new'
         }
     }, 
     mounted() {

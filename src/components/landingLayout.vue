@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-app-bar app fixed clipped-left height="70px" color="primary">
-            <img src="../assets/logo.svg" style="height:45px;width:45px" class="ml-5">
+            <img src="../assets/laundrylogo.png" style="height:45px;width:45px" class="ml-5">
             <v-toolbar-title style="font-size: 21px;" class="secondary--text ml-3">
                 CLEAN FRESH LAUNDRY
             </v-toolbar-title>

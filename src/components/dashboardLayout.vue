@@ -32,13 +32,13 @@
         </v-navigation-drawer>
 
         <v-app-bar dark app fixed clipped-left height="70px" color="primary_dark darken-1">
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="ml-3"></v-app-bar-nav-icon>
 
             <VSpacer />
-            <img src="../assets/logo.svg" style="height:45px;width:45px">
-            <v-toolbar-title style="font-size: 21px;" class="white--text ml-2">
-                PAW-UAJY
+            <v-toolbar-title style="font-size: 21px;" class="white--text">
+                CLEAN FRESH LAUNDRY
             </v-toolbar-title>
+            <img src="../assets/laundrylogo.png" style="height:45px;width:45px" class="ml-4 mr-6">
         </v-app-bar>
 
         <VContent>
@@ -55,7 +55,7 @@ export default {
             items: [
                 {
                     path: '/user/order',
-                    title: 'MY ORDER',
+                    title: 'My Order',
                     icon: 'mdi-human-male'
                 },
                 {
