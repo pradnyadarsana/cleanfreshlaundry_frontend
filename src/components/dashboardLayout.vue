@@ -59,6 +59,11 @@ export default {
                     icon: 'mdi-human-male'
                 },
                 {
+                    path: '/user/pricelist',
+                    title: 'Pricelist',
+                    icon: 'mdi-human-male'
+                },
+                {
                     path: '/dashboard/user',
                     title: 'User Controller',
                     icon: 'mdi-human-male'
