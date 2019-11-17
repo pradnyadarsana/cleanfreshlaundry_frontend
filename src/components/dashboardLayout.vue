@@ -64,6 +64,11 @@ export default {
                     icon: 'mdi-human-male'
                 },
                 {
+                    path: '/user/review',
+                    title: 'User Review',
+                    icon: 'mdi-human-male'
+                },
+                {
                     path: '/dashboard/user',
                     title: 'User Controller',
                     icon: 'mdi-human-male'

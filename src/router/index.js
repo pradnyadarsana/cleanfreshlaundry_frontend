@@ -48,6 +48,11 @@ const routes = [
                 name: 'PricelistController',           
                 path: '/user/pricelist',           
                 component: loadUserView('pricelistController')         
+            },
+            {           
+                name: 'ReviewController',           
+                path: '/user/review',           
+                component: loadUserView('reviewController')         
             },       
             {           
                 name: 'UserController',           
