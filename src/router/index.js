@@ -1,8 +1,11 @@
 import Vue from 'vue' 
 import Router from 'vue-router' 
  
+const EmployeeLogin = () => import(/* webpackChunkName: "dashboard" */ '../components/employeeLogin.vue')
 const LandingLayout = () => import(/* webpackChunkName: "dashboard" */ '../components/landingLayout.vue')
 const DashboardLayout = () => import(/* webpackChunkName: "dashboard" */ '../components/dashboardLayout.vue') 
+const EmployeeDashboard = () => import(/* webpackChunkName: "dashboard" */ '../components/employeeDashboard.vue')
+
 
 function loadLandingView(view) { 
     return () => import(/* webpackChunkName: "view[request]" */ `../components/landingContents/${view}.vue`) 
@@ -10,10 +13,19 @@ function loadLandingView(view) {
 
 function loadUserView(view) { 
     return () => import(/* webpackChunkName: "view[request]" */ `../components/dashboardContents/${view}.vue`) 
-} 
+}
+
+function loadEmployeeView(view) { 
+    return () => import(/* webpackChunkName: "view[request]" */ `../components/employeeContents/${view}.vue`) 
+}
 
  
-const routes = [     
+const routes = [  
+    {       
+        path: '/employee',       
+        component: EmployeeLogin,       
+        children: []     
+    },   
     {       
         path: '/',       
         component: LandingLayout,       
@@ -45,9 +57,9 @@ const routes = [
                 component: loadUserView('orderController')         
             },
             {           
-                name: 'PricelistController',           
+                name: 'PricelistView',           
                 path: '/user/pricelist',           
-                component: loadUserView('pricelistController')         
+                component: loadUserView('pricelistView')         
             },
             {           
                 name: 'ReviewController',           
@@ -64,6 +76,27 @@ const routes = [
                 path: '/dashboard/branch',           
                 component: loadUserView('branchController')         
             }         
+        ]     
+    },
+    {       
+        path: '/manage',       
+        component: EmployeeDashboard,       
+        children: [
+            {           
+                name: 'CustomerOrder',           
+                path: '/manage/order',           
+                component: loadEmployeeView('customerOrder')         
+            },
+            {           
+                name: 'CustomerReview',           
+                path: '/manage/review',           
+                component: loadEmployeeView('customerReview')         
+            },
+            {           
+                name: 'PricelistController',           
+                path: '/manage/pricelist',           
+                component: loadEmployeeView('pricelistController')         
+            },
         ]     
     },   
 ]   

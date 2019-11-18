@@ -1,6 +1,6 @@
 <template>
     <section>
-        <v-parallax :src="require('../../assets/people_laundry.jpg')" height="600">
+        <v-parallax :src="require('../../assets/people_laundry.jpg')" height="685">
         <v-layout column align-center justify-center class="white--text">
             <v-row class="mt-10">
                 <v-col cols="7" class="mt-10">
