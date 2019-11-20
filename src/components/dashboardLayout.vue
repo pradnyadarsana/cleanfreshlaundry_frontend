@@ -26,7 +26,7 @@
             </v-list>
             <template v-slot:append>
                 <div class="pa-2">
-                    <v-btn block color="error">Logout</v-btn>
+                    <v-btn block color="error" @click="logout()">Logout</v-btn>
                 </div>
             </template>
         </v-navigation-drawer>
@@ -81,5 +81,17 @@ export default {
             ],
         }
     },
+    methods:{
+        logout() {
+            localStorage.removeItem('user_token')
+            this.$router.push({name : "LoginPage"})
+        }
+    },
+    mounted(){
+        if(!localStorage.getItem("user_token")){
+            this.$router.push({name : 'LoginPage'})
+        }
+    }
+    
 }
 </script> 

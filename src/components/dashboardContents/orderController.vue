@@ -197,13 +197,18 @@ export default {
         getData() {
             var username = 'pande'
             var uri = this.$apiUrl + '/order/userOrder/' + username
-            this.$http.get(uri).then(response => {
+            this.$http.get(uri, {headers: {'Authorization':localStorage.getItem("user_token")}}).then(response => {
                 this.orders = response.data.message
             })
         },
         sendData() {
+            var getPayloadUri = this.$apiUrl + '/auth'
+            this.$http.get(getPayloadUri, {header: {'Authorization': localStorage.getItem("user_token")}})
+            .then(response => {
+                console.log(response)
+            })
             this.order = new FormData
-            var username = 'pande'
+            var username = 'pradnyadarsana'
             var phone = '0128312832'
             this.order_status = 'Unprocessed'
             this.order.append('username', username);
@@ -314,8 +319,14 @@ export default {
         }
     }, 
     mounted() {
+        
         this.getPricelistData();
         this.getData();
+        // var getPayloadUri = this.$apiUrl + '/auth'
+        //     this.$http.get(getPayloadUri, {header: {'Authorization': localStorage.getItem("user_token")}})
+        //     .then(response => {
+        //         console.log(response)
+        //     })
     },
 } 
 </script>

@@ -20,10 +20,10 @@
                             <v-row>
                             
                             <v-col cols="12">
-                                <v-text-field label="Username" required></v-text-field>
+                                <v-text-field v-model="form.username" label="Username" required></v-text-field>
                             </v-col>
                             <v-col cols="12">
-                                <v-text-field label="Password" type="password" required></v-text-field>
+                                <v-text-field v-model="form.password" label="Password" type="password" required></v-text-field>
                             </v-col>
                             
                             </v-row>
@@ -31,7 +31,7 @@
                         </v-card-text>
                         <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn class="align-center">LOGIN</v-btn>
+                        <v-btn class="align-center" @click="userLogin()">LOGIN</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -39,6 +39,9 @@
             
         </v-layout>
         </v-parallax>
+        <v-snackbar v-model="snackbar" :color="color" :multi-line="true" :timeout="3000"> {{ text }} <v-btn dark text
+              @click="snackbar = false"> Close </v-btn>
+          </v-snackbar>
     </section>
     
 </template>
@@ -47,8 +50,60 @@
 export default {
     data() {
         return {
-            
+            snackbar: false,
+            color: null,
+            text: '',
+            load: false,
+            form: {
+                username: '',
+                password: ''
+            },
+            user: new FormData,
+            errors: '',
         }
     },
+    methods: {
+        userLogin() {
+            this.user.append('username', this.form.username);
+            this.user.append('password', this.form.password);
+            var uri = this.$apiUrl + '/auth'
+            this.load = true 
+            this.$http.post(uri, this.user).then(response => {
+                this.snackbar = true; //mengaktifkan snackbar               
+                this.color = 'green'; //memberi warna snackbar               
+                this.text = response.data.message; //memasukkan pesan ke snackbar  
+                console.log(response.data)             
+                if(response.data.token)
+                {
+                    localStorage.setItem("user_token", response.data.token)
+                    this.$router.push({name : 'HomeController'})
+                }else
+                {
+                   this.text = 'Login Failed, please try again'
+                }
+                this.load = false;               
+                this.dialog = false                             
+                this.resetForm();           
+            }).catch(error =>{               
+                this.errors = error               
+                this.snackbar = true;               
+                this.text = 'Try Again';               
+                this.color = 'red';               
+                this.load = false;           
+            })         
+        },
+        resetForm() {
+            this.form = {
+                username: '',
+                password: ''
+            }
+        },
+        logout() {
+            localStorage.removeItem('user_token')
+            this.$router.push({name : "LoginPage"})
+        }
+    },
+    mounted(){
+    }
 }
 </script> 

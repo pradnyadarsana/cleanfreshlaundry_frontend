@@ -36,5 +36,10 @@ export default {
             ],
         }
     },
+    mounted(){
+        if(localStorage.getItem("user_token")){
+            this.$router.push({name : 'HomeController'})
+        }
+    }
 }
 </script> 

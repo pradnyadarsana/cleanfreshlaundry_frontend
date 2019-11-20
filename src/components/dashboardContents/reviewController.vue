@@ -45,13 +45,31 @@
                                                             </template>
 
                                                             <v-list>
-                                                                <div v-for="(setting, i) in settings" :key="i" >
+                                                                <!-- <div v-for="(setting, i) in settings" :key="i" >
                                                                     <v-list-item @click="setting.action">
                                                                         <v-list-item-title>
                                                                             {{ setting.title }}
                                                                             
                                                                         </v-list-item-title>
                                                                         <v-icon class="ml-3">{{ setting.icon }}</v-icon>
+                                                                    </v-list-item>
+                                                                </div> -->
+                                                                <div>
+                                                                    <v-list-item @click="editHandler(item)">
+                                                                        <v-list-item-title>
+                                                                            Edit
+                                                                            
+                                                                        </v-list-item-title>
+                                                                        <v-icon class="ml-3">mdi-pencil</v-icon>
+                                                                    </v-list-item>
+                                                                </div>
+                                                                <div>
+                                                                    <v-list-item @click="deleteData(item.id)">
+                                                                        <v-list-item-title>
+                                                                            Delete
+                                                                            
+                                                                        </v-list-item-title>
+                                                                        <v-icon class="ml-3">mdi-delete</v-icon>
                                                                     </v-list-item>
                                                                 </div>
                                                                 
