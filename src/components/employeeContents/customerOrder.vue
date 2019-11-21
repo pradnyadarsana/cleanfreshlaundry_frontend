@@ -210,8 +210,7 @@ export default {
             })
         },
         getData() {
-            var username = 'pande'
-            var uri = this.$apiUrl + '/order/userOrder/' + username
+            var uri = this.$apiUrl + '/order'
             this.$http.get(uri).then(response => {
                 this.orders = response.data.message
             })
@@ -292,6 +291,10 @@ export default {
         }
     }, 
     mounted() {
+        if(!localStorage.getItem("employee_token"))
+        {
+            this.$router.push({name: 'LoginEmployee'})
+        }
         this.getPricelistData();
         this.getData();
     },

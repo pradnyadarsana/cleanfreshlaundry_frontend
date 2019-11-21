@@ -24,7 +24,12 @@ const routes = [
     {       
         path: '/employee',       
         component: EmployeeLogin,       
-        children: []     
+        children: [
+            {
+                name: 'LoginEmployee',
+                path: ''
+            }
+        ]     
     },   
     {       
         path: '/',       

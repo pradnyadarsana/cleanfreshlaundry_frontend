@@ -40,8 +40,8 @@
         </v-layout>
         </v-parallax>
         <v-snackbar v-model="snackbar" :color="color" :multi-line="true" :timeout="3000"> {{ text }} <v-btn dark text
-              @click="snackbar = false"> Close </v-btn>
-          </v-snackbar>
+                @click="snackbar = false"> Close </v-btn>
+        </v-snackbar>
     </section>
     
 </template>
@@ -77,8 +77,8 @@ export default {
                     this.color = 'green'; //memberi warna snackbar               
                     this.text = 'Login Success'; //memasukkan pesan ke snackbar  
                     localStorage.setItem("user_token", response.data.data.token)
-                    localStorage.setItem('username',window.btoa(response.data.data.user['username']))
-                    localStorage.setItem('phone',window.btoa(response.data.data.user['phone']))
+                    localStorage.setItem('user_username',window.btoa(response.data.data.user['username']))
+                    localStorage.setItem('user_phone',window.btoa(response.data.data.user['phone']))
                     this.$router.push({name : 'HomeController'})
                     //console.log(window.atob(localStorage.getItem("username")))
                 }else
@@ -109,6 +109,9 @@ export default {
         }
     },
     mounted(){
+        if(localStorage.getItem("user_token")){
+            this.$router.push({name : 'HomeController'})
+        }
     }
 }
 </script> 

@@ -35,10 +35,10 @@
                                             <v-row>
 
                                                 <v-col cols="12">
-                                                    <v-text-field label="Username" required></v-text-field>
+                                                    <v-text-field v-model="form.username" label="Username" required></v-text-field>
                                                 </v-col>
                                                 <v-col cols="12">
-                                                    <v-text-field label="Password" type="password" required>
+                                                    <v-text-field v-model="form.password" label="Password" type="password" required>
                                                     </v-text-field>
                                                 </v-col>
 
@@ -47,7 +47,7 @@
                                     </v-card-text>
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
-                                        <v-btn class="align-center">LOGIN</v-btn>
+                                        <v-btn class="align-center" @click="employeeLogin">LOGIN</v-btn>
                                     </v-card-actions>
                                 </v-card>
                             </v-col>
@@ -55,6 +55,9 @@
 
                     </v-layout>
                 </v-parallax>
+                <v-snackbar v-model="snackbar" :color="color" :multi-line="true" :timeout="3000"> {{ text }} <v-btn dark
+                        text @click="snackbar = false"> Close </v-btn>
+                </v-snackbar>
             </section>
 
         </template>
@@ -62,21 +65,67 @@
     </div>
 </template>
  
-<!--<script>   
+<script>   
 export default {
     data() {
         return {
-            items: [
-                {
-                    path: '/',
-                    title: 'Login'
-                },
-                {
-                    path: '/register',
-                    title: 'Register'
-                },
-            ],
+            snackbar: false,
+            color: null,
+            text: '',
+            load: false,
+            form: {
+                username: '',
+                password: ''
+            },
+            employee: new FormData,
+            errors: '',
         }
     },
+    methods:{
+        employeeLogin() {
+            this.employee.append('username', this.form.username);
+            this.employee.append('password', this.form.password);
+            var uri = this.$apiUrl + '/EmployeeAuth'
+            this.load = true 
+            this.$http.post(uri, this.employee).then(response => {
+                this.snackbar = true; //mengaktifkan snackbar  
+                console.log(response.data.data)             
+                if(response.data.data)
+                {          
+                    this.color = 'green'; //memberi warna snackbar               
+                    this.text = 'Login Success'; //memasukkan pesan ke snackbar  
+                    localStorage.setItem("employee_token", response.data.data.token)
+                    localStorage.setItem('employee_username',window.btoa(response.data.data.user['username']))
+                    this.$router.push({name : 'CustomerOrder'})
+                    //console.log(window.atob(localStorage.getItem("username")))
+                }else
+                {             
+                    this.color = 'red'; //memberi warna snackbar 
+                    this.text = 'Login Failed'
+                }
+                this.load = false;               
+                this.dialog = false                             
+                this.resetForm();           
+            }).catch(error =>{               
+                this.errors = error               
+                this.snackbar = true;               
+                this.text = 'Try Again';               
+                this.color = 'red';               
+                this.load = false;           
+            })         
+        },
+        resetForm() {
+            this.form = {
+                username: '',
+                password: ''
+            }
+        },
+    },
+    mounted(){
+        if(localStorage.getItem("employee_token"))
+        {
+            this.$router.push({name: 'CustomerOrder'})
+        }
+    }
 }
-</script> -->
+</script>

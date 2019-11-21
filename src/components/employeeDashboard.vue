@@ -26,7 +26,7 @@
             </v-list>
             <template v-slot:append>
                 <div class="pa-2">
-                    <v-btn block color="error">Logout</v-btn>
+                    <v-btn block color="error" @click="logout">Logout</v-btn>
                 </div>
             </template>
         </v-navigation-drawer>
@@ -71,5 +71,17 @@ export default {
             ],
         }
     },
+    methods:{
+        logout() {
+            var uri = this.$apiUrl + '/employeeauth/deleteToken/' + localStorage.getItem("employee_token")
+            this.$http.post(uri).then(response => {
+                localStorage.removeItem('employee_token')
+                localStorage.removeItem('employee_username')
+                this.$router.push({name : "LoginEmployee"})
+            }).catch(error => {
+                console.log("Logout failed")
+            })
+        }
+    }
 }
 </script> 

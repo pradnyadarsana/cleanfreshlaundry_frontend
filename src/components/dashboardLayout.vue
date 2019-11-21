@@ -92,8 +92,6 @@ export default {
             }).catch(error => {
                 console.log("Logout failed")
             })
-
-            
         }
     },
     mounted(){

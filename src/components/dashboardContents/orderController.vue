@@ -162,7 +162,9 @@ export default {
             pricelist: [],
             price_cat: [],
             order_status : '',
-            deleteId: ''
+            deleteId: '',
+            myusername: '',
+            myphone: '',
         }
     },
     computed:{
@@ -196,8 +198,7 @@ export default {
             })
         },
         getData() {
-            var username = window.atob(localStorage.getItem("username"))
-            var uri = this.$apiUrl + '/order/userOrder/' + username
+            var uri = this.$apiUrl + '/order/userOrder/' + this.myusername
             this.$http.get(uri, {headers: {'Authorization':localStorage.getItem("user_token")}}).then(response => {
                 this.orders = response.data.message
             })
@@ -210,8 +211,8 @@ export default {
             })
             this.order = new FormData
             this.order_status = 'Unprocessed'
-            this.order.append('username', window.atob(localStorage.getItem("username")));
-            this.order.append('phone', window.atob(localStorage.getItem("phone")));  
+            this.order.append('username', this.myusername);
+            this.order.append('phone', this.myphone);  
             this.order.append('address', this.form.address);
             this.order.append('price_cat', this.form.price_cat);
             this.order.append('weight', this.form.weight);
@@ -319,9 +320,11 @@ export default {
         
     }, 
     mounted() {
-        
+        this.myusername = window.atob(localStorage.getItem("user_username"));
+        this.myphone = window.atob(localStorage.getItem("user_phone"));
         this.getPricelistData();
         this.getData();
+        
         // var getPayloadUri = this.$apiUrl + '/auth'
         //     this.$http.get(getPayloadUri, {header: {'Authorization': localStorage.getItem("user_token")}})
         //     .then(response => {

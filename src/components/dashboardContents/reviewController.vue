@@ -256,7 +256,7 @@ export default {
     }, 
     mounted() {
         this.getData();
-        this.myusername = window.atob(localStorage.getItem("username"));
+        this.myusername = window.atob(localStorage.getItem("user_username"));
     },
 } 
 </script>

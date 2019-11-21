@@ -128,6 +128,10 @@ export default {
         },
     }, 
     mounted() {
+        if(!localStorage.getItem("employee_token"))
+        {
+            this.$router.push({name: 'LoginEmployee'})
+        }
         this.getData();
     },
 } 
