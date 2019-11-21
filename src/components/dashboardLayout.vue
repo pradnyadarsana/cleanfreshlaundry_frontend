@@ -1,13 +1,13 @@
 <template>
     <div>
         <v-navigation-drawer v-model="drawer" class="primary_dark" dark app clipped fixed temporary>
-            <v-list-item>
+            <v-list-item link :to="'/user/profile'">
                 <v-list-item-content>
                     <v-list-item-title class="title">
-                        Modul 11
+                        {{user.name}}
                     </v-list-item-title>
                     <v-list-item-subtitle>
-                        Vue Consume REST API
+                        {{user.username}}
                     </v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
@@ -51,6 +51,7 @@
 export default {
     data() {
         return {
+            myusername: '',
             drawer: null,
             items: [
                 {
@@ -79,6 +80,7 @@ export default {
                     icon: 'mdi-human-male'
                 },
             ],
+            user: ''
         }
     },
     methods:{
@@ -92,13 +94,22 @@ export default {
             }).catch(error => {
                 console.log("Logout failed")
             })
+        },
+        getUser(){
+            this.myusername = window.atob(localStorage.getItem("user_username"));
+            var uri = this.$apiUrl + '/user/oneUser/' + this.myusername
+            this.$http.get(uri).then(response => {
+                //console.log(response.data.message[0])
+                this.user = response.data.message[0]
+            })
         }
     },
     mounted(){
         if(!localStorage.getItem("user_token")){
             this.$router.push({name : 'LoginPage'})
         }
+        this.getUser()
+        
     }
-    
 }
 </script> 

@@ -59,9 +59,7 @@
                         text @click="snackbar = false"> Close </v-btn>
                 </v-snackbar>
             </section>
-
         </template>
-
     </div>
 </template>
  

@@ -1,13 +1,13 @@
 <template>
     <div>
         <v-navigation-drawer v-model="drawer" class="primary_dark" dark app clipped fixed temporary>
-            <v-list-item>
+            <v-list-item link :to="'/employee/profile'">
                 <v-list-item-content>
                     <v-list-item-title class="title">
-                        Modul 11
+                        {{employee.name}}
                     </v-list-item-title>
                     <v-list-item-subtitle>
-                        Vue Consume REST API
+                        {{employee.username}}
                     </v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
@@ -69,6 +69,8 @@ export default {
                     icon: 'mdi-human-male'
                 },
             ],
+            myusername: '',
+            employee: ''
         }
     },
     methods:{
@@ -81,7 +83,22 @@ export default {
             }).catch(error => {
                 console.log("Logout failed")
             })
+        },
+        getEmployee(){
+            this.myusername = window.atob(localStorage.getItem("employee_username"));
+            var uri = this.$apiUrl + '/employee/oneEmployee/' + this.myusername
+            this.$http.get(uri).then(response => {
+                console.log(response.data.message[0])
+                this.employee = response.data.message[0]
+            })
         }
+    },
+    mounted(){
+        if(!localStorage.getItem("employee_token")){
+            this.$router.push({name : 'LoginEmployee'})
+        }
+        this.getEmployee()
+        
     }
 }
 </script> 

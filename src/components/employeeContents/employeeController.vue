@@ -4,19 +4,19 @@
                 <v-row class="my-10 mx-10">
                     <v-col cols="6" class="mt-10 ml-10">
                         <h1 class="white--text mb-2 mt-10 display-1 text-xs-center" style="font-weight: 900; text-shadow: 3px 2px #000000">
-                            {{userdata.name}}</h1>
+                            {{employeedata.name}}</h1>
                         <div class="white--text subheading mb-3 text-xs-center" style="font-weight: 900; text-shadow: 2px 2px #000000">
-                            {{userdata.email}}</div>
+                            {{employeedata.email}}</div>
                         <span style="height: 50px"></span>
                         <div class="white--text subheading mb-3 text-xs-center" style="font-weight: 900; text-shadow: 2px 2px #000000">
-                            {{userdata.username}}</div>
+                            {{employeedata.username}}</div>
                         <div class="white--text subheading mb-3 text-xs-center" style="font-weight: 900; text-shadow: 2px 2px #000000">
-                            {{userdata.phone}}</div>
+                            {{employeedata.phone}}</div>
                         <div class="white--text subheading mb-3 text-xs-center" style="font-weight: 900; text-shadow: 2px 2px #000000">
-                            {{userdata.gender}}</div>
+                            {{employeedata.gender}}</div>
                     </v-col>
                     <v-col cols="5" class="mt-10 mr-10">
-                        <div class="blue--text subheading mb-3 mt-10 text-xs-center" style="font-weight: 900; text-shadow: 2px 2px #ffffff" @click="editHandler(userdata)" hover>
+                        <div class="blue--text subheading mb-3 mt-10 text-xs-center" style="font-weight: 900; text-shadow: 2px 2px #ffffff" @click="editHandler(employeedata)" hover>
                             <a>Edit Profile</a>
                             </div>
                         <div class="blue--text subheading mb-3 text-xs-center" style="font-weight: 900; text-shadow: 2px 2px #ffffff" @click="passdialog = true">
@@ -94,7 +94,7 @@ export default {
                 'Male',
                 'Female',
             ],
-            userdata: [],
+            employeedata: [],
             snackbar: false,
             color: null,
             text: '',
@@ -106,7 +106,7 @@ export default {
                 username: '',
                 gender: '',
             },
-            user: new FormData,
+            employee: new FormData,
             errors: '',
             updatedId: '',
             myusername: '',
@@ -114,16 +114,16 @@ export default {
     },
     methods: {        
         updateData(){
-            this.user.append('name', this.form.name); 
-            this.user.append('phone', this.form.phone);             
-            this.user.append('email', this.form.email);
-            this.user.append('username', this.form.username);
-            this.user.append('gender', this.form.gender); 
-            console.log(this.user);
-            console.log(this.userdata.id)             
-            var uri = this.$apiUrl + '/user/' + this.userdata.id;             
+            this.employee.append('name', this.form.name); 
+            this.employee.append('phone', this.form.phone);             
+            this.employee.append('email', this.form.email);
+            this.employee.append('username', this.form.username);
+            this.employee.append('gender', this.form.gender); 
+            // console.log(this.employee);
+            // console.log(this.employeedata.id)             
+            var uri = this.$apiUrl + '/employee/' + this.employeedata.id;             
             this.load = true             
-            this.$http.post(uri,this.user).then(response =>{ 
+            this.$http.post(uri,this.employee).then(response =>{ 
                 this.snackbar = true; //mengaktifkan snackbar               
                 this.color = 'green'; //memberi warna snackbar               
                 this.text = response.data.message; //memasukkan pesan ke snackbar               
@@ -140,10 +140,10 @@ export default {
             })         
         },
         updatePassword(){
-            this.user.append('password', this.form.password);            
-            var uri = this.$apiUrl + '/user/updatePassword/' + this.userdata.id;             
+            this.employee.append('password', this.form.password);            
+            var uri = this.$apiUrl + '/employee/updatePassword/' + this.employeedata.id;             
             this.load = true             
-            this.$http.post(uri,this.user).then(response =>{ 
+            this.$http.post(uri,this.employee).then(response =>{ 
                 this.snackbar = true; //mengaktifkan snackbar               
                 this.color = 'green'; //memberi warna snackbar               
                 this.text = response.data.message; //memasukkan pesan ke snackbar               
@@ -159,20 +159,20 @@ export default {
                 this.load = false;           
             })         
         },         
-        editHandler(userdata){          
+        editHandler(employeedata){          
             this.dialog = true;           
-            this.form.name = userdata.name;
-            this.form.phone = userdata.phone;           
-            this.form.email = userdata.email;           
-            this.form.username = userdata.username; 
-            this.form.gender = userdata.gender;         
-            this.updatedId = userdata.id         
+            this.form.name = employeedata.name;
+            this.form.phone = employeedata.phone;           
+            this.form.email = employeedata.email;           
+            this.form.username = employeedata.username; 
+            this.form.gender = employeedata.gender;         
+            this.updatedId = employeedata.id         
         },
         getUser(){
-            var uri = this.$apiUrl + '/user/oneUser/' + this.myusername
+            var uri = this.$apiUrl + '/employee/oneEmployee/' + this.myusername
             this.$http.get(uri).then(response => {
                 console.log(response.data.message[0])
-                this.userdata = response.data.message[0]
+                this.employeedata = response.data.message[0]
             })
         }, 
         resetForm() {
@@ -186,7 +186,7 @@ export default {
         }
     }, 
     mounted() {
-        this.myusername = window.atob(localStorage.getItem("user_username"));
+        this.myusername = window.atob(localStorage.getItem("employee_username"));
         this.getUser();
     },
 } 

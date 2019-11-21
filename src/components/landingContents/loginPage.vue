@@ -6,9 +6,6 @@
                 <v-col cols="7" class="mt-10">
                     <h1 class="white--text mb-2 mt-10 display-1 text-xs-center" style="font-weight: 900; text-shadow: 3px 2px #000000">The best laundry in the world</h1>
                     <div class="white--text subheading mb-3 text-xs-center" style="font-weight: 900; text-shadow: 2px 2px #000000">Unlesh your creativity without limitations</div>
-                    <v-btn class="blue lighten-2 mt-5" dark large href="/pre-made-themes">
-                    About US
-                    </v-btn>
                 </v-col>
                 <v-col cols="5" class="mt-10">
                     <v-card>

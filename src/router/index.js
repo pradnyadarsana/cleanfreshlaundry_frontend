@@ -73,7 +73,7 @@ const routes = [
             },       
             {           
                 name: 'UserController',           
-                path: '/dashboard/user',           
+                path: '/user/profile',           
                 component: loadUserView('userController')         
             },
             {           
@@ -87,6 +87,11 @@ const routes = [
         path: '/manage',       
         component: EmployeeDashboard,       
         children: [
+            {           
+                name: 'EmployeeController',           
+                path: '/employee/profile',           
+                component: loadEmployeeView('employeeController')         
+            },
             {           
                 name: 'CustomerOrder',           
                 path: '/manage/order',           
