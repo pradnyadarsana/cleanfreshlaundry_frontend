@@ -47,6 +47,7 @@
 </template>
 
 <script>   
+import { encode } from 'punycode';
 export default {
     data() {
         return {
@@ -72,11 +73,14 @@ export default {
                 this.snackbar = true; //mengaktifkan snackbar               
                 this.color = 'green'; //memberi warna snackbar               
                 this.text = response.data.message; //memasukkan pesan ke snackbar  
-                console.log(response.data)             
-                if(response.data.token)
+                //console.log(response.data.data)             
+                if(response.data.data)
                 {
-                    localStorage.setItem("user_token", response.data.token)
+                    localStorage.setItem("user_token", response.data.data.token)
+                    localStorage.setItem('username',window.btoa(response.data.data.user['username']))
+                    localStorage.setItem('phone',window.btoa(response.data.data.user['phone']))
                     this.$router.push({name : 'HomeController'})
+                    //console.log(window.atob(localStorage.getItem("username")))
                 }else
                 {
                    this.text = 'Login Failed, please try again'

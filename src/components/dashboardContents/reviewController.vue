@@ -148,7 +148,6 @@ export default {
             text: '',
             load: false,
             form: {
-                username: '',
                 rate: '',
                 category: '',
                 description: ''
@@ -167,7 +166,7 @@ export default {
             })
         },
         sendData() {
-            this.review.append('username', this.form.username);
+            this.review.append('username', window.atob(localStorage.getItem("username")));
             this.review.append('rate', this.form.rate);
             this.review.append('category', this.form.category);
             this.review.append('description', this.form.description);
@@ -191,7 +190,6 @@ export default {
             })         
         },         
         updateData(){             
-            this.review.append('username', this.form.username);
             this.review.append('rate', this.form.rate);
             this.review.append('category', this.form.category);
             this.review.append('description', this.form.description);           
@@ -249,7 +247,6 @@ export default {
         }, 
         resetForm() {
             this.form = {
-                username: '',
                 rate: '',
                 category: '',
                 description: ''

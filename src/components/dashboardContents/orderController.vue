@@ -154,6 +154,7 @@ export default {
                 weight: '',
                 price: ''
             },
+            user: null,
             order: new FormData,
             typeInput: 'new',
             errors: '',
@@ -195,7 +196,7 @@ export default {
             })
         },
         getData() {
-            var username = 'pande'
+            var username = window.atob(localStorage.getItem("username"))
             var uri = this.$apiUrl + '/order/userOrder/' + username
             this.$http.get(uri, {headers: {'Authorization':localStorage.getItem("user_token")}}).then(response => {
                 this.orders = response.data.message
@@ -208,11 +209,9 @@ export default {
                 console.log(response)
             })
             this.order = new FormData
-            var username = 'pradnyadarsana'
-            var phone = '0128312832'
             this.order_status = 'Unprocessed'
-            this.order.append('username', username);
-            this.order.append('phone', phone);
+            this.order.append('username', window.atob(localStorage.getItem("username")));
+            this.order.append('phone', window.atob(localStorage.getItem("phone")));  
             this.order.append('address', this.form.address);
             this.order.append('price_cat', this.form.price_cat);
             this.order.append('weight', this.form.weight);
@@ -237,8 +236,8 @@ export default {
                 this.load = false;           
             })         
         },         
-        updateData(){  
-            this.order = new FormData           
+        updateData(){
+            this.order = new FormData         
             this.order.append('address', this.form.address);
             this.order.append('price_cat', this.form.price_cat);
             this.order.append('weight', this.form.weight);
@@ -316,7 +315,8 @@ export default {
             this.dialog = false,
             this.resetForm()
             this.typeInput = 'new'
-        }
+        },
+        
     }, 
     mounted() {
         

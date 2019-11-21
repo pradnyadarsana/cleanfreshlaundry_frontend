@@ -83,8 +83,17 @@ export default {
     },
     methods:{
         logout() {
-            localStorage.removeItem('user_token')
-            this.$router.push({name : "LoginPage"})
+            var uri = this.$apiUrl + '/auth/deleteToken/' + localStorage.getItem("user_token")
+            this.$http.post(uri).then(response => {
+                localStorage.removeItem('user_token')
+                localStorage.removeItem('username')
+                localStorage.removeItem('phone')
+                this.$router.push({name : "LoginPage"})
+            }).catch(error => {
+                console.log("Logout failed")
+            })
+
+            
         }
     },
     mounted(){
