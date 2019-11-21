@@ -102,7 +102,7 @@ export default {
                 this.load = false;               
                 this.dialog = false               
                 //this.getData(); //mengambil data user               
-                          
+                resetForm()      
             }).catch(error =>{               
                 this.errors = error               
                 this.snackbar = true;               

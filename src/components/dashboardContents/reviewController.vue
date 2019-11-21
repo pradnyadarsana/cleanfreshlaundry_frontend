@@ -36,7 +36,7 @@
                                                     </v-list-item-content>
                                                 </v-flex>
                                                 <v-flex xs1>
-                                                    <v-list-item-content>
+                                                    <v-list-item-content v-if="myusername == item.username">
                                                         <v-menu bottom left>
                                                             <template v-slot:activator="{ on }">
                                                                 <v-btn dark icon v-on="on" class="align-start">
@@ -156,6 +156,7 @@ export default {
             typeInput: 'new',
             errors: '',
             updatedId: '',
+            myusername: ''
         }
     },
     methods: {
@@ -166,7 +167,7 @@ export default {
             })
         },
         sendData() {
-            this.review.append('username', window.atob(localStorage.getItem("username")));
+            this.review.append('username', this.myusername);//window.atob(localStorage.getItem("username")));
             this.review.append('rate', this.form.rate);
             this.review.append('category', this.form.category);
             this.review.append('description', this.form.description);
@@ -255,6 +256,7 @@ export default {
     }, 
     mounted() {
         this.getData();
+        this.myusername = window.atob(localStorage.getItem("username"));
     },
 } 
 </script>

@@ -70,20 +70,21 @@ export default {
             var uri = this.$apiUrl + '/auth'
             this.load = true 
             this.$http.post(uri, this.user).then(response => {
-                this.snackbar = true; //mengaktifkan snackbar               
-                this.color = 'green'; //memberi warna snackbar               
-                this.text = response.data.message; //memasukkan pesan ke snackbar  
+                this.snackbar = true; //mengaktifkan snackbar  
                 //console.log(response.data.data)             
                 if(response.data.data)
-                {
+                {          
+                    this.color = 'green'; //memberi warna snackbar               
+                    this.text = 'Login Success'; //memasukkan pesan ke snackbar  
                     localStorage.setItem("user_token", response.data.data.token)
                     localStorage.setItem('username',window.btoa(response.data.data.user['username']))
                     localStorage.setItem('phone',window.btoa(response.data.data.user['phone']))
                     this.$router.push({name : 'HomeController'})
                     //console.log(window.atob(localStorage.getItem("username")))
                 }else
-                {
-                   this.text = 'Login Failed, please try again'
+                {             
+                    this.color = 'red'; //memberi warna snackbar 
+                    this.text = 'Login Failed'
                 }
                 this.load = false;               
                 this.dialog = false                             
