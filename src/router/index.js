@@ -50,7 +50,12 @@ const routes = [
     {       
         path: '/home',       
         component: DashboardLayout,       
-        children: [ 
+        children: [
+            {           
+                name: 'UserController',           
+                path: '/user/profile',           
+                component: loadUserView('userController')         
+            }, 
             {           
                 name: 'HomeController',           
                 path: '/',           
@@ -71,16 +76,6 @@ const routes = [
                 path: '/user/review',           
                 component: loadUserView('reviewController')         
             },       
-            {           
-                name: 'UserController',           
-                path: '/user/profile',           
-                component: loadUserView('userController')         
-            },
-            {           
-                name: 'BranchController',           
-                path: '/dashboard/branch',           
-                component: loadUserView('branchController')         
-            }         
         ]     
     },
     {       

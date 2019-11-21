@@ -18,8 +18,7 @@
                         <v-text-field label="Phone*" v-model="form.phone" required></v-text-field>
                       </v-col>
                       <v-col cols="6">
-                        <v-text-field label="Gender*" v-model="form.gender" required>
-                        </v-text-field>
+                        <v-select class="align-center" :items="gender" v-model="form.gender" label="Gender" outlined></v-select>
                       </v-col>
                       <v-col cols="12">
                         <v-text-field label="Email*" v-model="form.email" required>
@@ -57,6 +56,10 @@ export default {
             //dialog: false,
             //keyword: '',
             //users: [],
+            gender: [
+              'Male',
+              'Female'
+            ],
             snackbar: false,
             color: null,
             text: '',

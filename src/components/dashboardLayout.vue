@@ -69,16 +69,6 @@ export default {
                     title: 'User Review',
                     icon: 'mdi-human-male'
                 },
-                {
-                    path: '/dashboard/user',
-                    title: 'User Controller',
-                    icon: 'mdi-human-male'
-                },
-                {
-                    path: '/dashboard/branch',
-                    title: 'Branch Controller',
-                    icon: 'mdi-human-male'
-                },
             ],
             user: ''
         }
@@ -88,8 +78,8 @@ export default {
             var uri = this.$apiUrl + '/auth/deleteToken/' + localStorage.getItem("user_token")
             this.$http.post(uri).then(response => {
                 localStorage.removeItem('user_token')
-                localStorage.removeItem('username')
-                localStorage.removeItem('phone')
+                localStorage.removeItem('user_username')
+                localStorage.removeItem('user_phone')
                 this.$router.push({name : "LoginPage"})
             }).catch(error => {
                 console.log("Logout failed")

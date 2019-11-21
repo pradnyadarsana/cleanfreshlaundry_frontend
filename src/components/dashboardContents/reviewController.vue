@@ -11,13 +11,14 @@
                         </v-btn>
                     </v-flex>
                     <v-flex xs6 class="text-right">
-                        <v-combobox v-model="keyword" :items="review_category" label="Category"></v-combobox>
+                        <!-- <v-combobox v-model="keyword" :items="review_category" label="Category"></v-combobox> -->
+                        <v-select class="align-center" :items="review_category" v-model="filter" label="Filter by Category" outlined clearable="true"></v-select>
                     </v-flex>
                 </v-layout>
                 <template>
                     <v-layout row wrap align-center :search="keyword">
                             <v-flex>
-                                <div v-for="item in reviews" :key="item.id" class="mb-3">
+                                <div v-for="item in filteredItems" :key="item.id" class="mb-3">
                                     <v-card class="mx-auto" max-width="750" outlined>
                                         <v-list-item three-line>
                                             <v-layout>
@@ -45,15 +46,6 @@
                                                             </template>
 
                                                             <v-list>
-                                                                <!-- <div v-for="(setting, i) in settings" :key="i" >
-                                                                    <v-list-item @click="setting.action">
-                                                                        <v-list-item-title>
-                                                                            {{ setting.title }}
-                                                                            
-                                                                        </v-list-item-title>
-                                                                        <v-icon class="ml-3">{{ setting.icon }}</v-icon>
-                                                                    </v-list-item>
-                                                                </div> -->
                                                                 <div>
                                                                     <v-list-item @click="editHandler(item)">
                                                                         <v-list-item-title>
@@ -93,7 +85,8 @@
                     <v-container>
                         <v-row>
                             <v-col cols="12">
-                                <v-combobox v-model="form.category" :items="review_category" label="Category*" required></v-combobox>
+                                <!-- <v-combobox v-model="form.category" :items="review_category" label="Category*" required></v-combobox> -->
+                                <v-select class="align-center" :items="review_category" v-model="form.category" label="Category" outlined></v-select>
                             </v-col>
                             <v-col cols="12">
                                 <v-rating v-model="form.rate" color="yellow" background-color="yellow lighten-3" required></v-rating>
@@ -156,7 +149,15 @@ export default {
             typeInput: 'new',
             errors: '',
             updatedId: '',
-            myusername: ''
+            myusername: '',
+            filter: ''
+        }
+    },
+    computed:{
+        filteredItems() {
+            return this.reviews.filter((i) => {
+                return !this.filter || (i.category === this.filter);
+            })
         }
     },
     methods: {
@@ -167,7 +168,7 @@ export default {
             })
         },
         sendData() {
-            this.review.append('username', this.myusername);//window.atob(localStorage.getItem("username")));
+            this.review.append('username', this.myusername);
             this.review.append('rate', this.form.rate);
             this.review.append('category', this.form.category);
             this.review.append('description', this.form.description);

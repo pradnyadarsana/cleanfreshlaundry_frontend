@@ -52,8 +52,8 @@
                                     </v-text-field>
                                 </v-col>
                                 <v-col>
-                                    <v-combobox v-model="form.price_cat" :items="price_cat" label="Price Category*">
-                                    </v-combobox>
+                                    <v-select class="align-center" :items="price_cat" v-model="form.price_cat" label="Price Category" outlined>
+                                    </v-select>
                                 </v-col>
                                 <v-col cols="3">
                                     <v-text-field type="number" min="0" label="Weight*" v-model="form.weight" required>
