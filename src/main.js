@@ -5,7 +5,8 @@ import router from './router'
 import vuetify from './plugins/vuetify'; 
  
 Vue.prototype.$http = Axios; 
-Vue.prototype.$apiUrl = 'http://localhost:8080/cleanfreshlaundry'; 
+Vue.prototype.$apiUrl = 'https://cleanfresh-api.smithdev.xyz/index.php'; 
+// Vue.prototype.$apiUrl = 'https://localhost:8080/cleanfreshlaundry'; 
  
 Vue.config.productionTip = false 
  

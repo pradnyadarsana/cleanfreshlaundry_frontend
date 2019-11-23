@@ -75,14 +75,14 @@ export default {
     },
     methods:{
         logout() {
-            var uri = this.$apiUrl + '/employeeauth/deleteToken/' + localStorage.getItem("employee_token")
-            this.$http.post(uri).then(response => {
+            // var uri = this.$apiUrl + '/EmployeeAuth/deleteToken/' + localStorage.getItem("employee_token")
+            // this.$http.post(uri).then(response => {
                 localStorage.removeItem('employee_token')
                 localStorage.removeItem('employee_username')
                 this.$router.push({name : "LoginEmployee"})
-            }).catch(error => {
-                console.log("Logout failed")
-            })
+            // }).catch(error => {
+            //     console.log("Logout failed")
+            // })
         },
         getEmployee(){
             this.myusername = window.atob(localStorage.getItem("employee_username"));
