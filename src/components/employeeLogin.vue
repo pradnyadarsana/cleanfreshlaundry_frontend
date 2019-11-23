@@ -15,45 +15,48 @@
         <template>
             <section class="mt-10">
                 <v-parallax :src="require('../assets/employeeloginbg.jpg')" height="715">
-                    <v-layout column align-center justify-center class="white--text mt-10">
-                        <v-row class="mt-10">
-                            <v-col cols="7" class="mt-10">
-                                <h1 class="white--text mb-2 mt-10 display-1 text-xs-center"
-                                    style="font-weight: 900; text-shadow: 3px 2px #000000">The best laundry in the world
-                                </h1>
-                                <div class="white--text subheading mb-3 text-xs-center"
-                                    style="font-weight: 900; text-shadow: 2px 2px #000000">Unlesh your creativity
-                                    without limitations</div>
-                            </v-col>
-                            <v-col cols="5" class="mt-10">
-                                <v-card>
-                                    <v-card-title>
-                                        <span class="headline">Employee Login</span>
-                                    </v-card-title>
-                                    <v-card-text>
-                                        <v-container>
-                                            <v-row>
+                    <v-container>
+                        <v-layout column align-center justify-center class="white--text">
+                            <v-row>
+                                <v-col cols="7" class="px-7">
+                                    <h1 class="white--text mb-2 mt-10 display-1 text-xs-center" style="font-weight: 900; text-shadow: 3px 2px #000000">Clean Fresh Laundry</h1>
+                                    <hr class="my-3">
+                                    <h2 class="white--text mb-2 text-xs-center" style="font-weight: 900; text-shadow: 3px 2px #000000">Amazing Laundry in Babarsari to visit.</h2>
+                                    <div class="white--text subheading mb-3 text-xs-center" style="font-weight: 900; text-shadow: 2px 2px #000000">Laundry who serve with all my heart. Once you try you will not regret.
+                                        The best laundry service number 2 after number 1, we guarantee real cleanliness, speed, and fragrance, without deception. 
+                                    </div>
+                                </v-col>
+                                <v-col cols="5" class="px-7">
+                                    <v-card>
+                                        <v-card-title>
+                                            <span class="headline">Employee Login</span>
+                                        </v-card-title>
+                                        <v-card-text>
+                                            <v-container>
+                                                <v-row>
 
-                                                <v-col cols="12">
-                                                    <v-text-field v-model="form.username" label="Username" required></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12">
-                                                    <v-text-field v-model="form.password" label="Password" type="password" required>
-                                                    </v-text-field>
-                                                </v-col>
+                                                    <v-col cols="12">
+                                                        <v-text-field v-model="form.username" label="Username" required></v-text-field>
+                                                    </v-col>
+                                                    <v-col cols="12">
+                                                        <v-text-field v-model="form.password" label="Password" type="password" required>
+                                                        </v-text-field>
+                                                    </v-col>
 
-                                            </v-row>
-                                        </v-container>
-                                    </v-card-text>
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn class="align-center" @click="employeeLogin">LOGIN</v-btn>
-                                    </v-card-actions>
-                                </v-card>
-                            </v-col>
-                        </v-row>
+                                                </v-row>
+                                            </v-container>
+                                        </v-card-text>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn class="align-center" @click="employeeLogin">LOGIN</v-btn>
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-col>
+                            </v-row>
 
-                    </v-layout>
+                        </v-layout>
+                    </v-container>
+                    
                 </v-parallax>
                 <v-snackbar v-model="snackbar" :color="color" :multi-line="true" :timeout="3000"> {{ text }} <v-btn dark
                         text @click="snackbar = false"> Close </v-btn>

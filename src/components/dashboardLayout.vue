@@ -57,17 +57,22 @@ export default {
                 {
                     path: '/user/order',
                     title: 'My Order',
-                    icon: 'mdi-human-male'
+                    icon: 'mdi-basket'
                 },
                 {
                     path: '/user/pricelist',
                     title: 'Pricelist',
-                    icon: 'mdi-human-male'
+                    icon: 'mdi-cash-usd'
                 },
                 {
                     path: '/user/review',
                     title: 'User Review',
-                    icon: 'mdi-human-male'
+                    icon: 'mdi-star'
+                },
+                {
+                    path: '/home/about',
+                    title: 'About Us',
+                    icon: 'mdi-information-variant'
                 },
             ],
             user: ''

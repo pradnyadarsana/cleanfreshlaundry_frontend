@@ -56,17 +56,17 @@ export default {
                 {
                     path: '/manage/order',
                     title: 'Customers Order',
-                    icon: 'mdi-human-male'
+                    icon: 'mdi-basket'
                 },
                 {
                     path: '/manage/review',
                     title: 'Customers Review',
-                    icon: 'mdi-human-male'
+                    icon: 'mdi-star'
                 },
                 {
                     path: '/manage/pricelist',
                     title: 'Pricelist Manager',
-                    icon: 'mdi-human-male'
+                    icon: 'mdi-cash-usd'
                 },
             ],
             myusername: '',
