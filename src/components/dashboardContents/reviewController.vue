@@ -243,7 +243,7 @@ export default {
             if (this.typeInput === 'new') {
                 this.sendData()
             } else {
-                console.log("dddd")
+                //console.log("dddd")
                 this.updateData()
             }
         }, 

@@ -212,17 +212,17 @@ export default {
             this.getReviewData()
             var index = []
             this.displayedReview = []
-            console.log(this.reviews.length)
+            //console.log(this.reviews.length)
             for(var i=0;i<3;i++){
                 index.push(Math.floor(Math.random() * 10))
             }
-            console.log(index)
+            //console.log(index)
                 for (i in this.reviews){
-                    console.log(i)
+                    //console.log(i)
                     this.displayedReview.push(i)
                     
                 }
-            console.log(this.displayedReview)
+            //console.log(this.displayedReview)
             
         }
     },

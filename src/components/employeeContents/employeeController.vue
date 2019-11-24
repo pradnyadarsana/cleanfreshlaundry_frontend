@@ -171,7 +171,7 @@ export default {
         getUser(){
             var uri = this.$apiUrl + '/employee/oneEmployee/' + this.myusername
             this.$http.get(uri).then(response => {
-                console.log(response.data.message[0])
+                //console.log(response.data.message[0])
                 this.employeedata = response.data.message[0]
             })
         }, 

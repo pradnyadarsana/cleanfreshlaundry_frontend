@@ -40,7 +40,9 @@
             </v-toolbar-title>
             <img src="../assets/laundrylogo.png" style="height:45px;width:45px" class="ml-4 mr-6">
         </v-app-bar>
-
+        <v-snackbar v-model="snackbar" :color="color" :multi-line="true" :timeout="3000"> {{ text }} <v-btn dark
+                text @click="snackbar = false"> Close </v-btn>
+        </v-snackbar>
         <VContent>
             <router-view/>
         </VContent>
@@ -75,7 +77,10 @@ export default {
                     icon: 'mdi-information-variant'
                 },
             ],
-            user: ''
+            user: '',
+            snackbar: false,
+            color: null,
+            text: '',
         }
     },
     methods:{
@@ -88,6 +93,9 @@ export default {
                 this.$router.push({name : "LoginPage"})
             }).catch(error => {
                 console.log("Logout failed")
+                this.snackbar = true; //mengaktifkan snackbar               
+                this.color = 'red'; //memberi warna snackbar               
+                this.text = 'Logout Failed'; //memasukkan pesan ke snackbar    
             })
         },
         getUser(){

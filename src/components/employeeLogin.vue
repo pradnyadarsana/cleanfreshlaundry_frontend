@@ -90,7 +90,7 @@ export default {
             this.load = true 
             this.$http.post(uri, this.employee).then(response => {
                 this.snackbar = true; //mengaktifkan snackbar  
-                console.log(response.data.data)             
+                //console.log(response.data.data)             
                 if(response.data.data)
                 {          
                     this.color = 'green'; //memberi warna snackbar               

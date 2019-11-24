@@ -88,7 +88,7 @@ export default {
             this.myusername = window.atob(localStorage.getItem("employee_username"));
             var uri = this.$apiUrl + '/employee/oneEmployee/' + this.myusername
             this.$http.get(uri).then(response => {
-                console.log(response.data.message[0])
+                //console.log(response.data.message[0])
                 this.employee = response.data.message[0]
             })
         }

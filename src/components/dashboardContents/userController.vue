@@ -119,8 +119,8 @@ export default {
             this.user.append('email', this.form.email);
             this.user.append('username', this.form.username);
             this.user.append('gender', this.form.gender); 
-            console.log(this.user);
-            console.log(this.userdata.id)             
+            // console.log(this.user);
+            // console.log(this.userdata.id)             
             var uri = this.$apiUrl + '/user/' + this.userdata.id;             
             this.load = true             
             this.$http.post(uri,this.user).then(response =>{ 
@@ -171,7 +171,7 @@ export default {
         getUser(){
             var uri = this.$apiUrl + '/user/oneUser/' + this.myusername
             this.$http.get(uri).then(response => {
-                console.log(response.data.message[0])
+                //console.log(response.data.message[0])
                 this.userdata = response.data.message[0]
             })
         }, 

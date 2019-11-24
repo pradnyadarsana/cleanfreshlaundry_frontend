@@ -207,7 +207,7 @@ export default {
             var getPayloadUri = this.$apiUrl + '/auth'
             this.$http.get(getPayloadUri, {header: {'Authorization': localStorage.getItem("user_token")}})
             .then(response => {
-                console.log(response)
+                //console.log(response)
             })
             this.order = new FormData
             this.order_status = 'Unprocessed'
@@ -295,7 +295,7 @@ export default {
             if (this.typeInput === 'new') {
                 this.sendData()
             } else {
-                console.log("update data")
+                //console.log("update data")
                 this.updateData()
             }
         }, 

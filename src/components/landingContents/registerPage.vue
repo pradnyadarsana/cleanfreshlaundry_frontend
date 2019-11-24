@@ -97,7 +97,7 @@ export default {
             this.$http.post(uri, this.user).then(response => {
                 this.snackbar = true; //mengaktifkan snackbar               
                 this.color = 'green'; //memberi warna snackbar  
-                console.log("ini response "+response.data.message)             
+                //console.log("ini response "+response.data.message)             
                 this.text = response.data.message; //memasukkan pesan ke snackbar               
                 // var err = response.data.error;
                 // if (error != true){
